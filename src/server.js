@@ -9,7 +9,7 @@ app.get("/", (req, res) => {
 app.get("/api", (req, res) => {
 	res.json({ msg: "Welcome to express Rest API." });
 });
-
+//derps
 //Define Routes
 app.use("/api/users", require("./routes/users"));
 app.use("/api/auth", require("./routes/auth"));
