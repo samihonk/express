@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 /**
  * @route POST api/auth
  * @desc Auth user & get token
- * @access Private
+ * @access Public
  */
 router.post("/", (req, res) => {
 	res.json({ msg: "Login user!" });
