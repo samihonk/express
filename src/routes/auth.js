@@ -7,7 +7,16 @@ const router = express.Router();
  * @access Private
  */
 router.get("/", (req, res) => {
-	res.json({ msg: "Auth API!" });
+	res.json({ msg: "Get user!" });
+});
+
+/**
+ * @route POST api/auth
+ * @desc Auth user & get token
+ * @access Private
+ */
+router.post("/", (req, res) => {
+	res.json({ msg: "Login user!" });
 });
 
 module.exports = router;
