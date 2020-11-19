@@ -9,7 +9,7 @@
 	"main": "src/server.js",
 	"scripts": {
 		"start": "node src/server.js",
-		"server": "nodemon -L",
+		"nm": "nodemon -L",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"dependencies": {
