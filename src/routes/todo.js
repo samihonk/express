@@ -1,5 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const db = require("../../config/db");
+const { QueryTypes } = require("sequelize");
+
+// const users = await sequelize.query("SELECT * FROM `users`", {
+// 	type: QueryTypes.SELECT,
+// });
 
 /**
  * @route GET api/todo
@@ -7,7 +13,17 @@ const router = express.Router();
  * @access Private
  */
 router.get("/", (req, res) => {
-	res.json({ msg: "Get todos!" });
+	db.query("SELECT * FROM test", {
+		type: QueryTypes.SELECT,
+	})
+		.then((data) => {
+			res.json(data);
+		})
+		.catch((err) => {
+			console.log(err);
+			// res.json({ msg: "Get todos failed!" });
+		});
+	// res.json({ msg: "Get todos!" });
 });
 
 /**
@@ -33,7 +49,7 @@ router.put("/:id", (req, res) => {
  * @desc Delete todo
  * @access Private
  */
-router.deelete("/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
 	res.json({ msg: "Delete todo!" });
 });
 

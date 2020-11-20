@@ -1,6 +1,11 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const db = require("../config/db");
+
+db.authenticate()
+	.then(() => console.log("Database connected..."))
+	.catch((err) => console.log("Error: " + err));
 
 app.get("/", (req, res) => {
 	res.json({ msg: "Welcome to DERP server." });
@@ -9,7 +14,7 @@ app.get("/", (req, res) => {
 app.get("/api", (req, res) => {
 	res.json({ msg: "Welcome to express Rest API." });
 });
-//derps
+
 //Define Routes
 app.use("/api/users", require("./routes/users"));
 app.use("/api/auth", require("./routes/auth"));
