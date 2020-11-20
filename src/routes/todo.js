@@ -3,10 +3,6 @@ const router = express.Router();
 const db = require("../../config/db");
 const { QueryTypes } = require("sequelize");
 
-// const users = await sequelize.query("SELECT * FROM `users`", {
-// 	type: QueryTypes.SELECT,
-// });
-
 /**
  * @route GET api/todo
  * @desc Get todos
@@ -21,9 +17,7 @@ router.get("/", (req, res) => {
 		})
 		.catch((err) => {
 			console.log(err);
-			// res.json({ msg: "Get todos failed!" });
 		});
-	// res.json({ msg: "Get todos!" });
 });
 
 /**
