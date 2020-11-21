@@ -1,7 +1,10 @@
 {
-	"DB_NAME": "express",
-	"DB_PORT": 5432,
-	"DB_HOST": "192.168.11.52",
-	"DB_USERNAME": "express",
-	"DB_PASSWORD": "admin"
+	"DB": {
+		"NAME": "express",
+		"PORT": 5432,
+		"HOST": "192.168.11.52",
+		"USERNAME": "express",
+		"PASSWORD": "admin"
+	},
+	"PORT": 8080
 }

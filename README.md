@@ -1,6 +1,16 @@
 # express
 
 express testing
+lots of problems with wsl
 
--   checking if wsl work correctly with vscode
--   more testing helper working now?
+## somethings in use
+
+-   postgres
+-   sequalize
+-   express
+
+## To add
+
+-   webpack
+-   docker
+-   docker compose
