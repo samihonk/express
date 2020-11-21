@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
-const { set } = require("../configs/db");
+const { set } = require("../config/db");
 const app = express();
-const db = require("../configs/db");
+const db = require("../config/db");
 
 db.authenticate()
 	.then(() => console.log("Database connected..."))
