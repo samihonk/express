@@ -1,8 +1,7 @@
-require("dotenv").config();
 const express = require("express");
-const { set } = require("../config/db");
 const app = express();
 const db = require("../config/db");
+const config = require("config");
 
 db.authenticate()
 	.then(() => console.log("Database connected..."))
@@ -23,9 +22,9 @@ app.use("/api/todo", require("./routes/todo"));
 
 app.use((req, res, next) => {
 	res.status(404);
-	res.json({ msg: "Resource not foundss!!" });
+	res.json({ msg: "Resource not found!!" });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = config.get("PORT") || 3000;
 
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));

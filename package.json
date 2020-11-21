@@ -6,9 +6,9 @@
 	"author": {
 		"name": "Sami Honkanen"
 	},
-	"main": "srcs/server.js",
+	"main": "src/server.js",
 	"scripts": {
-		"start": "node srcs/server.js",
+		"start": "node src/server.js",
 		"nm": "nodemon -L",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
@@ -23,7 +23,6 @@
 		"sequelize": "^6.3.5"
 	},
 	"devDependencies": {
-		"dotenv": "^8.2.0",
 		"nodemon": "^2.0.6"
 	}
 }
