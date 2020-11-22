@@ -11,11 +11,11 @@ const User = require("../models/User");
 router.get("/", async (req, res) => {
 	try {
 		// throw "Testing error!";
-		const result = await User.findAll();
-		res.status(200).json({ msg: "All users!", users: result });
+		const result = await User.findAll({ attributes: ["name", "email"] });
+		res.status(200).json(result);
 	} catch (error) {
 		console.log(error);
-		res.status(404).json({ msg: "Couldn't fetch data!" });
+		res.status(500).json({ msg: "Couldn't fetch data!" });
 	}
 });
 

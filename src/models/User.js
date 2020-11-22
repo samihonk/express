@@ -43,8 +43,8 @@ const User = db.define(
 );
 
 // Alter table sync doesn't do anything if table exists{ alter: true } Recreate table (drop & create){ force: true }
-User.sync().then(() => {
-	console.log("Table created");
+User.sync({ alter: true }).then(() => {
+	console.log("Table updated!");
 });
 
 module.exports = User;
