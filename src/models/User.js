@@ -20,6 +20,7 @@ const User = db.define(
 				notEmpty: true,
 			},
 		},
+		//RegEx not needed when using token
 		password: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -31,11 +32,8 @@ const User = db.define(
 		date: {
 			type: Sequelize.DATE,
 			defaultValue: Sequelize.NOW,
-			allowNull: false,
-			unique: true,
 			validate: {
 				isDate: true,
-				notEmpty: true,
 			},
 		},
 	},
@@ -44,6 +42,7 @@ const User = db.define(
 	}
 );
 
+// Alter table sync doesn't do anything if table exists{ alter: true } Recreate table (drop & create){ force: true }
 User.sync().then(() => {
 	console.log("Table created");
 });
