@@ -1,0 +1,9 @@
+test
+test2
+test3
+test4
+now we wait for default-cache-ttl 600 seconds and test if new config worked
+not yet
+wait 10mins
+wait 10mins more :D
+10min over does it remember!
