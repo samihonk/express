@@ -6,4 +6,4 @@ now we wait for default-cache-ttl 600 seconds and test if new config worked
 not yet
 wait 10mins
 wait 10mins more :D
-10min over does it remember! test
+10min over does it remember!
