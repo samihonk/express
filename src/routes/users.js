@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 		res.status(200).json(result);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ msg: "Couldn't fetch data!" });
+		res.status(400).json({ msg: "Couldn't fetch data!" });
 	}
 });
 
@@ -36,7 +36,7 @@ router.get("/:id", async (req, res) => {
 		res.status(200).json(result);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ msg: "Couldn't fetch data!" });
+		res.status(400).json({ msg: "Couldn't fetch data!" });
 	}
 });
 
@@ -52,16 +52,15 @@ router.post(
 		check("email")
 			.isEmail()
 			.withMessage("Please include valid email")
-			.custom((value) => {
-				return User.findOne({
+			.custom(async (value) => {
+				const user = await User.findOne({
 					where: {
 						email: value,
 					},
-				}).then((user) => {
-					if (user) {
-						return Promise.reject();
-					}
 				});
+				if (user) {
+					return Promise.reject();
+				}
 			})
 			.withMessage("E-mail already in use"),
 		check("password")
@@ -69,7 +68,7 @@ router.post(
 				/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@#$%^&(){}[\]:;<>,.?/~_+\-=|]).{8,32}$/i
 			)
 			.withMessage(
-				"Please enter email that is atleast 8 characters long and include a number, letter, capital letter and special character"
+				"Please enter password that is atleast 8 characters long and include a number, letter, capital letter and special character"
 			),
 	],
 	async (req, res) => {
@@ -86,7 +85,7 @@ router.post(
 			console.log(error);
 			const errorMsg = error.array();
 
-			res.status(500).send({
+			res.status(400).send({
 				msg: "Something went wrong",
 				error: errorMsg,
 			});
