@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
 /**
  * @route GET api/users
@@ -10,8 +13,7 @@ const User = require("../models/User");
  */
 router.get("/", async (req, res) => {
 	try {
-		// throw "Testing error!";
-		const result = await User.findAll({ attributes: ["name", "email"] });
+		const result = await User.findAll(); //{ attributes: ["name", "email"] }
 		res.status(200).json(result);
 	} catch (error) {
 		console.log(error);
@@ -34,6 +36,42 @@ router.get("/:id", async (req, res) => {
 			},
 		});
 		res.status(200).json(result);
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ msg: "Couldn't fetch data!" });
+	}
+});
+
+/**
+ * @route DELETE api/users
+ * @desc Delete users
+ * @access Private
+ */
+router.delete("/", async (req, res) => {
+	try {
+		// throw "Testing error!";
+		await User.destroy({ truncate: true });
+		res.status(200).json({ msg: "Users deleted!" });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ msg: "Couldn't fetch data!" });
+	}
+});
+
+/**
+ * @route DELETE api/users:id
+ * @desc Delete single user
+ * @access Private
+ */
+router.delete("/:id", async (req, res) => {
+	try {
+		// throw "Testing error!";
+		await User.destroy({
+			where: {
+				id: req.params.id,
+			},
+		});
+		res.status(200).json({ msg: "User deleted!" });
 	} catch (error) {
 		console.log(error);
 		res.status(400).json({ msg: "Couldn't fetch data!" });
@@ -77,17 +115,29 @@ router.post(
 			if (!errors.isEmpty()) {
 				throw errors;
 			}
-			const user = User.build(req.body);
+			let user = User.build(req.body);
+			const salt = await bcrypt.genSalt(10);
+			user.password = await bcrypt.hash(user.password, salt);
 			await user.save();
+
 			console.log("New user was created!");
+			const payload = {
+				user: user.id,
+			};
+			jwt.sign(
+				payload,
+				config.get("jwtSecret"),
+				{ expiresIn: 3600 },
+				(err, token) => {
+					if (err) throw err;
+					res.json({ token });
+				}
+			);
 			res.status(200).send({ msg: "User was registered succesfully!" });
 		} catch (error) {
 			console.log(error);
-			const errorMsg = error.array();
-
 			res.status(400).send({
 				msg: "Something went wrong",
-				error: errorMsg,
 			});
 		}
 	}
