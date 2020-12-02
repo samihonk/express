@@ -41,8 +41,8 @@ const User = db.define(
 		// Other model options go here
 	}
 );
-
 // Alter table sync doesn't do anything if table exists{ alter: true } Recreate table (drop & create){ force: true }
+// Dont use in production
 User.sync({ alter: true }).then(() => {
 	console.log("Table updated!");
 });

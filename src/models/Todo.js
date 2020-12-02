@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../../config/db");
-const user = require("./User");
+const User = require("./User");
 
 const Todo = db.define(
 	"Todo",
@@ -31,9 +31,10 @@ const Todo = db.define(
 		// Other model options go here
 	}
 );
-
-Todo.hasOne(user);
+//User,{as:"UserId"} for specific column name Default tablename followed by id in uppercase example UserId
+Todo.belongsTo(User);
 // Alter table sync doesn't do anything if table exists{ alter: true } Recreate table (drop & create){ force: true }
+// Dont use in production
 Todo.sync({ alter: true }).then(() => {
 	console.log("Table updated!");
 });
