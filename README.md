@@ -1,7 +1,7 @@
 # express
 
 express testing
-lots of problems with wsl
+added aws codecommit to git remote so it will push to both github & codecommit
 
 ## somethings in use
 
