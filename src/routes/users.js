@@ -130,10 +130,10 @@ router.post(
 				{ expiresIn: 3600 },
 				(err, token) => {
 					if (err) throw err;
-					res.json({ token });
+					res.status(200).json({ token });
 				}
 			);
-			res.status(200).send({ msg: "User was registered succesfully!" });
+			// res.status(200).send({ msg: "User was registered succesfully!" });
 		} catch (error) {
 			console.log(error);
 			res.status(400).send({
