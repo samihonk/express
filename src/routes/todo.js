@@ -2,13 +2,14 @@ const express = require("express");
 const router = express.Router();
 const Todo = require("../models/Todo");
 const { check, validationResult } = require("express-validator");
+const auth = require("../middleware/auth");
 
 /**
  * @route GET api/todo
  * @desc Get todos
  * @access Private
  */
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
 	try {
 		const result = await Todo.findAll(); //{ attributes: ["name", "email"] }
 		res.status(200).json(result);
@@ -23,7 +24,7 @@ router.get("/", async (req, res) => {
  * @desc Get todo
  * @access Private
  */
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
 	try {
 		const result = await Todo.findOne({
 			where: {
@@ -42,7 +43,7 @@ router.get("/:id", async (req, res) => {
  * @desc Get todo
  * @access Private
  */
-router.get("/user/:id", async (req, res) => {
+router.get("/user/:id", auth, async (req, res) => {
 	try {
 		const result = await Todo.findAll({
 			where: {
@@ -63,6 +64,7 @@ router.get("/user/:id", async (req, res) => {
  */
 router.post(
 	"/",
+	auth,
 	[
 		check("title", "Please include title").not().isEmpty(),
 		check("message", "Please include message").not().isEmpty(),
@@ -95,6 +97,7 @@ router.post(
  */
 router.put(
 	"/",
+	auth,
 	[check("id", "Todo id required").not().isEmpty()],
 	async (req, res) => {
 		try {
@@ -129,7 +132,7 @@ router.put(
  * @desc Delete todo
  * @access Private
  */
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
 	try {
 		// throw "Testing error!";
 		await Todo.destroy({
@@ -149,7 +152,7 @@ router.delete("/:id", async (req, res) => {
  * @desc Delete todo
  * @access Private
  */
-router.delete("/user/:id", async (req, res) => {
+router.delete("/user/:id", auth, async (req, res) => {
 	try {
 		// throw "Testing error!";
 		await Todo.destroy({
@@ -170,7 +173,7 @@ router.delete("/user/:id", async (req, res) => {
  * @desc Delete todo
  * @access Private
  */
-router.delete("/all/", async (req, res) => {
+router.delete("/all/", auth, async (req, res) => {
 	try {
 		// throw "Testing error!";
 		await Todo.destroy({

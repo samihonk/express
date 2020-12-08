@@ -5,15 +5,18 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const auth = require("../middleware/auth");
 
 /**
  * @route GET api/users
  * @desc Get users
  * @access Private
  */
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
 	try {
-		const result = await User.findAll(); //{ attributes: ["name", "email"] }
+		const result = await User.findAll({
+			attributes: ["id", "name", "email"],
+		}); //{ attributes: ["name", "email"] }
 		res.status(200).json(result);
 	} catch (error) {
 		console.log(error);
@@ -26,11 +29,11 @@ router.get("/", async (req, res) => {
  * @desc Get single user
  * @access Private
  */
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
 	try {
 		// throw "Testing error!";
 		const result = await User.findOne({
-			attributes: ["name", "email"],
+			attributes: ["id", "name", "email"],
 			where: {
 				id: req.params.id,
 			},
@@ -47,7 +50,7 @@ router.get("/:id", async (req, res) => {
  * @desc Delete users
  * @access Private
  */
-router.delete("/", async (req, res) => {
+router.delete("/", auth, async (req, res) => {
 	try {
 		// throw "Testing error!";
 		await User.destroy({ truncate: true });
@@ -63,7 +66,7 @@ router.delete("/", async (req, res) => {
  * @desc Delete single user
  * @access Private
  */
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
 	try {
 		// throw "Testing error!";
 		await User.destroy({
@@ -92,6 +95,7 @@ router.post(
 			.withMessage("Please include valid email")
 			.custom(async (value) => {
 				const user = await User.findOne({
+					attributes: ["id", "name", "email"],
 					where: {
 						email: value,
 					},
@@ -122,7 +126,7 @@ router.post(
 
 			console.log("New user was created!");
 			const payload = {
-				user: user.id,
+				user: { id: user.id },
 			};
 			jwt.sign(
 				payload,

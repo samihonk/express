@@ -5,14 +5,26 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const auth = require("../middleware/auth");
 
 /**
  * @route GET api/auth
  * @desc Get logged in user
  * @access Private
  */
-router.get("/", (req, res) => {
-	res.json({ msg: "Get user!" });
+router.get("/", auth, async (req, res) => {
+	try {
+		const user = await User.findOne({
+			attributes: ["id", "name", "email"],
+			where: {
+				id: req.user.id,
+			},
+		});
+		res.status(200).json(user);
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ msg: "Something went wrong!" });
+	}
 });
 
 /**
@@ -46,7 +58,7 @@ router.post(
 			}
 
 			const payload = {
-				user: user.id,
+				user: { id: user.id },
 			};
 			jwt.sign(
 				payload,
