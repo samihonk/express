@@ -2,7 +2,7 @@
 	"name": "express",
 	"description": "testing express",
 	"homepage": "https://github.com/samihonk/express",
-	"version": "0.1",
+	"version": "0.1.0",
 	"author": {
 		"name": "Sami Honkanen"
 	},
@@ -16,14 +16,14 @@
 		"bcryptjs": "^2.4.3",
 		"config": "^3.3.2",
 		"express": "^4.17.1",
-		"express-validator": "^6.6.1",
+		"express-validator": "^6.8.0",
 		"jsonwebtoken": "^8.5.1",
 		"pg": "^8.5.1",
 		"pg-hstore": "^2.3.3",
 		"sequelize": "^6.3.5"
 	},
 	"devDependencies": {
-		"eslint": "^7.14.0",
+		"eslint": "^7.15.0",
 		"nodemon": "^2.0.6"
 	}
 }
