@@ -6,5 +6,6 @@
 		"USERNAME": "express",
 		"PASSWORD": "admin"
 	},
-	"PORT": 8080
+	"PORT": 8080,
+	"jwtSecret": "secret"
 }

@@ -1,32 +1,22 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../../config/db");
+const User = require("./User");
 
-const User = db.define(
-	"User",
+const Todo = db.define(
+	"Todo",
 	{
-		name: {
+		title: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
 				notEmpty: true,
 			},
 		},
-		email: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			unique: true,
-			validate: {
-				isEmail: true,
-				notEmpty: true,
-			},
-		},
-		//RegEx not needed when using token
-		password: {
+		message: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
 				notEmpty: true,
-				// is: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@#$%^&(){}[\]:;<>,.?/~_+\-=|]).{8,32}$/i,
 			},
 		},
 		date: {
@@ -41,10 +31,12 @@ const User = db.define(
 		// Other model options go here
 	}
 );
+//User,{as:"UserId"} for specific column name Default tablename followed by id in uppercase example UserId
+Todo.belongsTo(User);
 // Alter table sync doesn't do anything if table exists{ alter: true } Recreate table (drop & create){ force: true }
 // Dont use in production
-User.sync({ alter: true }).then(() => {
+Todo.sync({ alter: true }).then(() => {
 	console.log("Table updated!");
 });
 
-module.exports = User;
+module.exports = Todo;
