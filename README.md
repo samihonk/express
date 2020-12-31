@@ -2,6 +2,10 @@
 
 Docker for development
 
+```
+docker-compose up
+```
+
 ## somethings in use
 
 -   postgres
