@@ -23,7 +23,7 @@ services:
             - 80:3000
         volumes:
             - ./client:/client
-            - node_modules_react:/app/node_modules
+            - node_modules_react:/client/node_modules
         command: npm run start
 volumes:
     node_modules_react:
