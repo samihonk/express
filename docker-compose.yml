@@ -10,6 +10,7 @@ services:
         ports:
             - 8080:8080
         volumes:
+            - .:/app
             - node_modules_express:/app/node_modules
         command: npm run nm
     client:
@@ -21,6 +22,7 @@ services:
         ports:
             - 80:3000
         volumes:
+            - ./client:/client
             - node_modules_react:/app/node_modules
         command: npm run start
 volumes:
