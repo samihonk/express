@@ -1,0 +1,31 @@
+nav {
+	width: 100%;
+	min-height: 50px;
+	background-color: black;
+	color: white;
+	padding: 3px;
+	display: flex !important;
+	align-items: center;
+}
+
+nav > ul {
+	display: inline !important;
+	margin: 0px;
+	padding: 0px;
+}
+
+nav > ul > li {
+	display: inline !important;
+	padding-left: 10px;
+}
+
+nav > h1 {
+	display: inline !important;
+	margin: 0px 20px 0px 0px !important;
+	padding: 0px;
+}
+
+.login-right {
+	margin: 0px 20px 0px auto;
+	order: 2;
+}
