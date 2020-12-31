@@ -35,7 +35,7 @@ const Todo = db.define(
 Todo.belongsTo(User);
 // Alter table sync doesn't do anything if table exists{ alter: true } Recreate table (drop & create){ force: true }
 // Dont use in production
-Todo.sync({ alter: true }).then(() => {
+Todo.sync({ alter: true, logging: false }).then(() => {
 	console.log("Table updated!");
 });
 
