@@ -1,4 +1,4 @@
-# express
+# express & react
 
 Docker for development
 
@@ -6,14 +6,18 @@ Docker for development
 docker-compose up
 ```
 
-## somethings in use
+## something in use
 
 -   postgres
 -   sequalize
 -   express
 -   docker
+-   react
 
 ## To add
+
+-   redux state management
+-   typescript
 
 -   cognito login
 -   ci-cd pipeline aws
