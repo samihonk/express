@@ -1,4 +1,6 @@
 {
+	"name": "express-react",
+	"description": "express rest api with react frontend",
 	"private": true,
 	"workspaces": [
 		"client",
