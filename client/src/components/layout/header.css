@@ -1,16 +1,16 @@
 .navbar {
 	padding-top: 0px;
 	padding-bottom: 0px;
-	padding-right: 10px;
+	padding-right: var(--padding-default);
 }
 
 .header-nav-title {
-	color: white;
+	color: var(--bs-light);
 	margin-bottom: 0px;
 	padding-top: 0px;
 	padding-bottom: 0px;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: var(--padding-default);
+	padding-right: var(--padding-default);
 }
 
 .nav-tabs {
@@ -22,14 +22,14 @@
 }
 
 .nav-link {
-	color: white;
+	color: var(--bs-light);
 	border: transparent;
 }
 
 .nav-link:hover {
-	color: black;
-	background-color: white;
-	border-color: white;
+	color: var(--bs-dark);
+	background-color: var(--bs-light);
+	border-color: var(--bs-light);
 }
 
 .links-left {

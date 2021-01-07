@@ -1,6 +1,10 @@
+:root {
+	--padding-default: 10px;
+}
+
 .content {
-	padding-top: 40px;
+	padding-top: calc(var(--padding-default) * 4);
 	padding-bottom: 0px;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: calc(var(--padding-default) * 2);
+	padding-right: calc(var(--padding-default) * 2);
 }

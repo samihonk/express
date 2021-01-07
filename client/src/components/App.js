@@ -11,6 +11,10 @@ import Login from "./auth/Login";
 import Layout from "./layout/Layout";
 import "./app.css";
 
+/**
+ * Refs to single file!
+ */
+
 const App = () => {
 	return (
 		<Router>
