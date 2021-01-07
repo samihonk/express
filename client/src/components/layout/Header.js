@@ -1,6 +1,9 @@
 import React from "react";
 import "./header.css";
 
+/**
+ * Refs to single file!
+ */
 const Header = () => {
 	return (
 		<nav className="navbar navbar-expand-sm bg-dark">
@@ -14,14 +17,14 @@ const Header = () => {
 					</a>
 				</li>
 				<li className="nav-item">
-					<a className="nav-link" href="/">
+					<a className="nav-link" href="/todo">
 						Todo
 					</a>
 				</li>
 			</ul>
 			<ul className="nav nav-tabs">
 				<li className="nav-item">
-					<a className="nav-link" href="/">
+					<a className="nav-link" href="/login">
 						Login
 					</a>
 				</li>

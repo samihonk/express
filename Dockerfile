@@ -1,15 +1,11 @@
 FROM node:15.3.0-alpine as devApi
 
-WORKDIR /app
+WORKDIR /server
 
-COPY package* ./
-
-RUN apk update && npm install 
+RUN apk update && apk upgrade
 
 FROM node:15.3.0-alpine as devClient
 
 WORKDIR /client
 
-COPY client/package* ./
-
-RUN apk update && npm install
+RUN apk update && apk upgrade

@@ -10,7 +10,7 @@ db.authenticate()
 app.use(express.json());
 
 app.get("/", (req, res) => {
-	res.json({ msg: "Welcome to DERP server." });
+	res.json({ msg: "Welcome to Test server." });
 });
 
 app.get("/api", (req, res) => {

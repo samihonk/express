@@ -10,8 +10,8 @@ services:
         ports:
             - 8080:8080
         volumes:
-            - .:/app
-        command: npm run nm
+            - ./server:/server:rw
+        command: sh -c "npm install && npm run nm"
     client:
         container_name: react-client
         build:
@@ -21,5 +21,5 @@ services:
         ports:
             - 80:3000
         volumes:
-            - ./client:/client
-        command: npm run start
+            - ./client:/client:rw
+        command: sh -c "npm install && npm run start"
