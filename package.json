@@ -1,9 +1,21 @@
 {
 	"name": "express-react",
 	"description": "express rest api with react frontend",
+	"license": "MIT license",
+	"author": {
+		"name": "Sami Honkanen"
+	},
 	"private": true,
 	"workspaces": [
 		"client",
 		"server"
-	]
+	],
+	"scripts": {
+		"client": "yarn workspace client start",
+		"server": "yarn workspace server nm",
+		"start": "concurrently --kill-others \"yarn client\" \"yarn server\" "
+	},
+	"devDependencies": {
+		"concurrently": "^5.3.0"
+	}
 }

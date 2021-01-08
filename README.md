@@ -6,6 +6,12 @@ Docker for development
 docker-compose up
 ```
 
+or without docker
+
+```
+yarn start
+```
+
 ## something in use
 
 -   postgres
