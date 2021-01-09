@@ -23,7 +23,7 @@ yarn start
 ## To add
 
 -   redux state management
--   typescript
+-   typescript ?
 
 -   cognito login
 -   ci-cd pipeline aws
