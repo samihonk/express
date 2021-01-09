@@ -2,6 +2,8 @@
 	"name": "express-react",
 	"description": "express rest api with react frontend",
 	"license": "MIT license",
+	"homepage": "https://github.com/samihonk/express",
+	"version": "0.1.0",
 	"author": {
 		"name": "Sami Honkanen"
 	},

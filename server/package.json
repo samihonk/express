@@ -1,6 +1,7 @@
 {
 	"name": "server",
-	"description": "testing express",
+	"description": "express rest api",
+	"license": "MIT license",
 	"homepage": "https://github.com/samihonk/express",
 	"version": "0.1.0",
 	"author": {
