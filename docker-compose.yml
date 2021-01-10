@@ -10,7 +10,7 @@ services:
         ports:
             - 8080:8080
         volumes:
-            - ./server:/server:rw
+            - ./server:/server
             - server_node_modules:/server/node_modules
         command: sh -c "yarn && yarn nm"
     client:
@@ -22,7 +22,7 @@ services:
         ports:
             - 80:3000
         volumes:
-            - ./client:/client:rw
+            - ./client:/client
             - client_node_modules:/client/node_modules
         command: sh -c "yarn && yarn start"
 volumes:

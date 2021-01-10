@@ -9,6 +9,9 @@ import Header from "./layout/Header";
 import Home from "./layout/Home";
 import Login from "./auth/Login";
 import Layout from "./layout/Layout";
+import { Provider } from "react-redux";
+import store from "../redux/store";
+
 import "./app.css";
 
 /**
@@ -17,23 +20,22 @@ import "./app.css";
 
 const App = () => {
 	return (
-		<Router>
-			<Header />
-			<Layout>
-				<Switch className="container">
-					<Route exact path="/">
-						<Home />
-					</Route>
-					{/* <PrivateRoute exact path="/messages">
-							<Contacts />
-						</PrivateRoute> */}
-					<Route exact path="/login">
-						<Login />
-					</Route>
-					<Redirect to="/" />
-				</Switch>
-			</Layout>
-		</Router>
+		<Provider store={store}>
+			<Router>
+				<Header />
+				<Layout>
+					<Switch className="container">
+						<Route exact path="/">
+							<Home />
+						</Route>
+						<Route exact path="/login">
+							<Login />
+						</Route>
+						<Redirect to="/" />
+					</Switch>
+				</Layout>
+			</Router>
+		</Provider>
 	);
 };
 
