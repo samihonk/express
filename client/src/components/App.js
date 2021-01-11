@@ -5,12 +5,15 @@ import {
 	Route,
 	Redirect,
 } from "react-router-dom";
+
+import { Provider } from "react-redux";
+import store from "../redux/store";
+
 import Header from "./layout/Header";
 import Home from "./layout/Home";
 import Login from "./auth/Login";
 import Layout from "./layout/Layout";
-import { Provider } from "react-redux";
-import store from "../redux/store";
+import Todos from "./todos/Todos";
 
 import "./app.css";
 
@@ -27,6 +30,9 @@ const App = () => {
 					<Switch className="container">
 						<Route exact path="/">
 							<Home />
+						</Route>
+						<Route exact path="/todos">
+							<Todos />
 						</Route>
 						<Route exact path="/login">
 							<Login />

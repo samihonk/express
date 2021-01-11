@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const db = require("../config/db");
 const config = require("config");
@@ -7,6 +8,7 @@ db.authenticate()
 	.then(() => console.log("Database connected..."))
 	.catch((err) => console.log("Error: " + err));
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
