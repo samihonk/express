@@ -9,9 +9,9 @@ const auth = require("../middleware/auth");
  * @desc Get todos
  * @access Private
  */
-//auth,
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
 	try {
+		// await new Promise((resolve) => setTimeout(resolve, 5000));
 		const result = await Todo.findAll(); //{ attributes: ["name", "email"] }
 		res.status(200).json(result);
 	} catch (error) {

@@ -1,8 +1,8 @@
 import * as Actions from "../actions/actionTypes";
 
 const initialState = {
-	todos: [],
-	loading: false,
+	todos: null,
+	loading: true,
 };
 
 const todoReducer = (state = initialState, action) => {
@@ -22,7 +22,8 @@ const todoReducer = (state = initialState, action) => {
 			console.error(action.payload);
 			return {
 				...state,
-				loading: true,
+				todos: [],
+				loading: false,
 			};
 		default:
 			return state;

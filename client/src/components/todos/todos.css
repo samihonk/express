@@ -1,0 +1,17 @@
+.todos-table {
+	max-width: 800px;
+	margin: auto;
+}
+
+.table-h-title {
+	width: 30%;
+}
+
+.table-h-message {
+	width: 70%;
+	text-align: right;
+}
+
+.table-message {
+	text-align: right;
+}
