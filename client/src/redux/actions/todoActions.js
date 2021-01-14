@@ -1,11 +1,8 @@
-import * as Actions from "./actionTypes";
 import axios from "axios";
-import { setHeaders } from "../helpers/AxiosHelper";
+import * as Actions from "./actionTypes";
 
 export const getTodos = () => async (dispatch) => {
 	try {
-		setLoading();
-		setHeaders();
 		const res = await axios.get("/api/todo");
 
 		dispatch({
@@ -18,6 +15,28 @@ export const getTodos = () => async (dispatch) => {
 			payload: error,
 		});
 	}
+};
+
+export const getUserTodos = () => async (dispatch) => {
+	try {
+		const res = await axios.get("/api/todo/user/");
+
+		dispatch({
+			type: Actions.GET_USER_TODOS,
+			payload: res.data,
+		});
+	} catch (error) {
+		dispatch({
+			type: Actions.ERROR,
+			payload: error,
+		});
+	}
+};
+
+export const clearTodos = () => {
+	return {
+		type: Actions.CLEAR_TODOS,
+	};
 };
 
 //Set loading

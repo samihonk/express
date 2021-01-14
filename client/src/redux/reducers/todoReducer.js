@@ -7,6 +7,7 @@ const initialState = {
 
 const todoReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case Actions.GET_USER_TODOS:
 		case Actions.GET_TODOS:
 			return {
 				...state,
@@ -24,6 +25,12 @@ const todoReducer = (state = initialState, action) => {
 				...state,
 				todos: [],
 				loading: false,
+			};
+		case Actions.CLEAR_TODOS:
+			return {
+				...state,
+				todos: [],
+				loading: true,
 			};
 		default:
 			return state;

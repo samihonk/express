@@ -5,6 +5,11 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
 
 /**
+ * Needs roles for permission checking for regular user and admin
+ *
+ */
+
+/**
  * @route GET api/todo
  * @desc Get todos
  * @access Private
@@ -21,6 +26,26 @@ router.get("/", auth, async (req, res) => {
 });
 
 /**
+ * @route GET api/todo/user/
+ * @desc Get todo
+ * @access Private
+ */
+router.get("/user/", auth, async (req, res) => {
+	try {
+		const result = await Todo.findAll({
+			where: {
+				UserId: req.user.id,
+			},
+		});
+		//{ attributes: ["name", "email"] }
+		return res.status(200).json(result);
+	} catch (error) {
+		console.log(error);
+		return res.status(400).json({ msg: "Couldn't fetch data!" });
+	}
+});
+
+/**
  * @route GET api/todo:id
  * @desc Get todo
  * @access Private
@@ -30,25 +55,6 @@ router.get("/:id", auth, async (req, res) => {
 		const result = await Todo.findOne({
 			where: {
 				id: req.params.id,
-			},
-		}); //{ attributes: ["name", "email"] }
-		res.status(200).json(result);
-	} catch (error) {
-		console.log(error);
-		res.status(400).json({ msg: "Couldn't fetch data!" });
-	}
-});
-
-/**
- * @route GET api/todo/user:id
- * @desc Get todo
- * @access Private
- */
-router.get("/user/:id", auth, async (req, res) => {
-	try {
-		const result = await Todo.findAll({
-			where: {
-				UserId: req.params.id,
 			},
 		}); //{ attributes: ["name", "email"] }
 		res.status(200).json(result);
@@ -81,10 +87,12 @@ router.post(
 			await Todo.build(req.body).save();
 			console.log("New todo was created!");
 
-			res.status(200).send({ msg: "Todo was created succesfully!" });
+			return res
+				.status(200)
+				.send({ msg: "Todo was created succesfully!" });
 		} catch (error) {
 			console.log(error);
-			res.status(400).send({
+			return res.status(400).send({
 				msg: "Something went wrong",
 			});
 		}
@@ -118,10 +126,10 @@ router.put(
 			await todo.save();
 			console.log("Todo was updated!");
 
-			res.status(200).send({ msg: "Todo was updated!" });
+			return res.status(200).send({ msg: "Todo was updated!" });
 		} catch (error) {
 			console.log(error);
-			res.status(400).send({
+			return res.status(400).send({
 				msg: "Something went wrong",
 			});
 		}
@@ -141,10 +149,10 @@ router.delete("/:id", auth, async (req, res) => {
 				id: req.params.id,
 			},
 		});
-		res.status(200).json({ msg: "Todo deleted!" });
+		return res.status(200).json({ msg: "Todo deleted!" });
 	} catch (error) {
 		console.log(error);
-		res.status(400).json({ msg: "Couldn't fetch data!" });
+		return res.status(400).json({ msg: "Couldn't fetch data!" });
 	}
 });
 
@@ -162,10 +170,10 @@ router.delete("/user/:id", auth, async (req, res) => {
 				UserId: req.params.id,
 			},
 		});
-		res.status(200).json({ msg: "Todos deleted!" });
+		return res.status(200).json({ msg: "Todos deleted!" });
 	} catch (error) {
 		console.log(error);
-		res.status(400).json({ msg: "Couldn't fetch data!" });
+		return res.status(400).json({ msg: "Couldn't fetch data!" });
 	}
 });
 
@@ -180,10 +188,10 @@ router.delete("/all/", auth, async (req, res) => {
 		await Todo.destroy({
 			truncate: true,
 		});
-		res.status(200).json({ msg: "Todos deleted!" });
+		return res.status(200).json({ msg: "Todos deleted!" });
 	} catch (error) {
 		console.log(error);
-		res.status(400).json({ msg: "Couldn't fetch data!" });
+		return res.status(400).json({ msg: "Couldn't fetch data!" });
 	}
 });
 

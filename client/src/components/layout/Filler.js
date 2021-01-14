@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 
-const Home = () => {
+const Filler = () => {
 	return (
 		<Fragment>
-			<h1>Home filler content</h1>
+			<h1>Some filler content</h1>
 			<p>
 				Lorem ipsum dolor sit amet consectetur, adipisicing elit.
 				Exercitationem fugiat soluta sit dignissimos minima dolore qui
@@ -37,4 +37,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default Filler;

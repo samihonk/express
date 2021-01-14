@@ -5,16 +5,15 @@ import {
 	Route,
 	Redirect,
 } from "react-router-dom";
-
 import { Provider } from "react-redux";
 import store from "../redux/store";
-
 import Header from "./layout/Header";
 import Home from "./layout/Home";
 import Login from "./auth/Login";
 import Layout from "./layout/Layout";
 import Todos from "./todos/Todos";
-
+import PrivateRoute from "./route/PrivateRoute";
+import Filler from "./layout/Filler";
 import "./app.css";
 
 /**
@@ -31,9 +30,12 @@ const App = () => {
 						<Route exact path="/">
 							<Home />
 						</Route>
-						<Route exact path="/todos">
-							<Todos />
+						<Route exact path="/filler">
+							<Filler />
 						</Route>
+						<PrivateRoute exact path="/todos">
+							<Todos />
+						</PrivateRoute>
 						<Route exact path="/login">
 							<Login />
 						</Route>

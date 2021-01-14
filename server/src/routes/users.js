@@ -8,6 +8,10 @@ const config = require("config");
 const auth = require("../middleware/auth");
 
 /**
+ * Needs roles for permission checking for regular user and admin
+ */
+
+/**
  * @route GET api/users
  * @desc Get users
  * @access Private
@@ -17,10 +21,31 @@ router.get("/", auth, async (req, res) => {
 		const result = await User.findAll({
 			attributes: ["id", "name", "email"],
 		}); //{ attributes: ["name", "email"] }
-		res.status(200).json(result);
+		return res.status(200).json(result);
 	} catch (error) {
 		console.log(error);
-		res.status(400).json({ msg: "Couldn't fetch data!" });
+		return res.status(400).json({ msg: "Couldn't fetch data!" });
+	}
+});
+
+/**
+ * @route GET api/users/single
+ * @desc Get single user
+ * @access Private
+ */
+router.get("/single/", auth, async (req, res) => {
+	try {
+		// throw "Testing error!";
+		const result = await User.findOne({
+			attributes: ["id", "name", "email"],
+			where: {
+				id: req.user.id,
+			},
+		});
+		return res.status(200).json(result);
+	} catch (error) {
+		console.log(error);
+		return res.status(400).json({ msg: "Couldn't fetch data!" });
 	}
 });
 
@@ -38,10 +63,10 @@ router.get("/:id", auth, async (req, res) => {
 				id: req.params.id,
 			},
 		});
-		res.status(200).json(result);
+		return res.status(200).json(result);
 	} catch (error) {
 		console.log(error);
-		res.status(400).json({ msg: "Couldn't fetch data!" });
+		return res.status(400).json({ msg: "Couldn't fetch data!" });
 	}
 });
 
@@ -54,10 +79,10 @@ router.delete("/", auth, async (req, res) => {
 	try {
 		// throw "Testing error!";
 		await User.destroy({ truncate: true });
-		res.status(200).json({ msg: "Users deleted!" });
+		return res.status(200).json({ msg: "Users deleted!" });
 	} catch (error) {
 		console.log(error);
-		res.status(400).json({ msg: "Couldn't fetch data!" });
+		return res.status(400).json({ msg: "Couldn't fetch data!" });
 	}
 });
 
@@ -74,10 +99,10 @@ router.delete("/:id", auth, async (req, res) => {
 				id: req.params.id,
 			},
 		});
-		res.status(200).json({ msg: "User deleted!" });
+		return res.status(200).json({ msg: "User deleted!" });
 	} catch (error) {
 		console.log(error);
-		res.status(400).json({ msg: "Couldn't fetch data!" });
+		return res.status(400).json({ msg: "Couldn't fetch data!" });
 	}
 });
 
@@ -134,13 +159,13 @@ router.post(
 				{ expiresIn: 3600 },
 				(err, token) => {
 					if (err) throw err;
-					res.status(200).json({ token });
+					return res.status(200).json({ token });
 				}
 			);
 			// res.status(200).send({ msg: "User was registered succesfully!" });
 		} catch (error) {
 			console.log(error);
-			res.status(400).send({
+			return res.status(400).send({
 				msg: "Something went wrong",
 			});
 		}
