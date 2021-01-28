@@ -1,28 +1,30 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import PropTypes from "prop-types";
 import { login } from "../../redux/actions/authActions";
 import "./login.css";
 
-const Login = ({ auth: { isAuthenticated }, login }) => {
+const Login = () => {
 	const emailRegex = /\S+@\S+$/;
 	const history = useHistory();
+	const auth = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 	const { handleSubmit, register, errors } = useForm();
+
 	useEffect(() => {
-		if (isAuthenticated) history.push("/messages");
-	}, [isAuthenticated, history]);
+		if (auth.isAuthenticated) history.push("/todos");
+	}, [auth.isAuthenticated, history]);
 
 	const onSubmit = (e) => {
-		login(e);
+		dispatch(login(e));
 	};
 
 	return (
 		<div className="row justify-content-center login">
 			<h2>Login</h2>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<div className="form-group">
+				<div className="form-group form-spacing">
 					<label htmlFor="email">Email:</label>
 					<input
 						className="form-control"
@@ -44,7 +46,7 @@ const Login = ({ auth: { isAuthenticated }, login }) => {
 						</div>
 					)}
 				</div>
-				<div className="form-group">
+				<div className="form-group form-spacing">
 					<label htmlFor="pwd">Password:</label>
 					<input
 						className="form-control"
@@ -62,7 +64,7 @@ const Login = ({ auth: { isAuthenticated }, login }) => {
 						</div>
 					)}
 				</div>
-				<button type="submit" className="btn btn-primary">
+				<button type="submit" className="btn btn-primary form-spacing">
 					Login
 				</button>
 			</form>
@@ -70,14 +72,4 @@ const Login = ({ auth: { isAuthenticated }, login }) => {
 	);
 };
 
-Login.propTypes = {
-	auth: PropTypes.object.isRequired,
-	isAuthenticated: PropTypes.bool,
-	login: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
-
-export default connect(mapStateToProps, { login })(Login);
+export default Login;

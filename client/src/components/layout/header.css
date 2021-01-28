@@ -35,3 +35,7 @@
 .links-left {
 	margin-right: auto;
 }
+
+.navbar-expanded {
+	height: 48px;
+}

@@ -1,11 +1,10 @@
 import React from "react";
+import "./layout.css";
 
 const Layout = ({ children }) => {
 	return (
-		<div className="row">
-			<div className="col-sm-2 d-sm-none d-md-block" />
-			<div className="content col-sm">{children}</div>
-			<div className="col-sm-2 d-none d-xl-block" />
+		<div className="row root-layout">
+			<div className="content col-sm main-content">{children}</div>
 		</div>
 	);
 };

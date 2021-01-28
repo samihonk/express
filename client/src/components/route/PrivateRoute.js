@@ -1,19 +1,10 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const PrivateRoute = ({ auth: { isAuthenticated }, children, ...rest }) => {
-	return <Route {...rest}>{isAuthenticated ? children : null}</Route>;
+const PrivateRoute = ({ children, ...rest }) => {
+	const auth = useSelector((state) => state.auth);
+	return <Route {...rest}>{auth.isAuthenticated ? children : null}</Route>;
 };
 
-PrivateRoute.propTypes = {
-	children: PropTypes.object,
-	auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
-
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;

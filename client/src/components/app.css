@@ -2,9 +2,6 @@
 	--padding-default: 10px;
 }
 
-.content {
-	padding-top: calc(var(--padding-default) * 4);
-	padding-bottom: 0px;
-	padding-left: calc(var(--padding-default) * 2);
-	padding-right: calc(var(--padding-default) * 2);
+body {
+	overflow: hidden;
 }

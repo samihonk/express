@@ -1,4 +1,8 @@
 .login {
-	max-width: 800px;
+	max-width: 400px;
 	margin: auto;
+}
+
+.form-spacing {
+	margin-top: 8px;
 }

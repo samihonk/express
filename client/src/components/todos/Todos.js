@@ -1,15 +1,19 @@
 import React, { useEffect, Fragment } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
 import { getUserTodos } from "../../redux/actions/todoActions";
 import TodoItem from "./TodoItem";
 import LoadingSpinner from "../layout/LoadingSpinner";
 import "./todos.css";
 
-const Todos = ({ todo: { todos, loading }, getUserTodos }) => {
+const Todos = () => {
+	const todos = useSelector((state) => state.todo.todos);
+	const loading = useSelector((state) => state.todo.loading);
+
+	const dispatch = useDispatch();
+
 	useEffect(() => {
-		getUserTodos();
-	}, [getUserTodos]);
+		dispatch(getUserTodos());
+	}, [dispatch]);
 
 	if (loading || (todos === null && !loading)) {
 		return <LoadingSpinner />;
@@ -38,13 +42,4 @@ const Todos = ({ todo: { todos, loading }, getUserTodos }) => {
 	);
 };
 
-Todos.propTypes = {
-	todo: PropTypes.object.isRequired,
-	getUserTodos: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-	todo: state.todo,
-});
-
-export default connect(mapStateToProps, { getUserTodos })(Todos);
+export default Todos;

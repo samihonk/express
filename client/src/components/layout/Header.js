@@ -1,19 +1,22 @@
 import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import { logout, loadUser } from "../../redux/actions/authActions";
+import { clearTodos } from "../../redux/actions/todoActions";
 import "./header.css";
 
-const Header = ({ auth: { isAuthenticated }, logout, loadUser }) => {
+const Header = () => {
+	const auth = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 	const history = useHistory();
 
 	useEffect(() => {
-		loadUser();
-	}, [loadUser]);
+		if (auth.isAuthenticated ? dispatch(loadUser()) : null);
+	}, [dispatch, auth.isAuthenticated]);
 
 	const onLogout = () => {
-		logout();
+		dispatch(logout());
+		dispatch(clearTodos());
 		history.push("/");
 	};
 
@@ -24,41 +27,41 @@ const Header = ({ auth: { isAuthenticated }, logout, loadUser }) => {
 	);
 
 	const authLogin = (
-		<a href="#!" onClick={onLogout} className="nav-link">
+		<Link to="/" onClick={onLogout} className="nav-link">
 			Logout
-		</a>
+		</Link>
 	);
 
 	const authLinks = (
 		<li className="nav-item">
-			<a className="nav-link" href="/todos">
+			<Link className="nav-link" to="/todos">
 				Todos
-			</a>
+			</Link>
 		</li>
 	);
 
 	return (
-		<nav className="navbar navbar-expand-sm bg-dark">
-			<h1 className="navbar-text header-nav-title" href="/">
+		<nav className="navbar fixed-top navbar-expand-sm bg-dark navbar-expanded">
+			<h1 className="navbar-text header-nav-title" to="/">
 				NavBar
 			</h1>
 			<ul className="nav nav-tabs links-left">
 				<li className="nav-item">
-					<a className="nav-link" href="/">
+					<Link className="nav-link" to="/">
 						Home
-					</a>
+					</Link>
 				</li>
 				<li className="nav-item">
-					<a className="nav-link" href="/filler">
+					<Link className="nav-link" to="/filler">
 						Filler
-					</a>
+					</Link>
 				</li>
-				{isAuthenticated ? authLinks : null}
+				{auth.isAuthenticated ? authLinks : null}
 			</ul>
 			<ul className="nav nav-tabs">
 				<li className="nav-item">
 					<div className="navbar-nav">
-						{isAuthenticated ? authLogin : guestLogin}
+						{auth.isAuthenticated ? authLogin : guestLogin}
 					</div>
 				</li>
 			</ul>
@@ -66,13 +69,4 @@ const Header = ({ auth: { isAuthenticated }, logout, loadUser }) => {
 	);
 };
 
-Header.propTypes = {
-	logout: PropTypes.func.isRequired,
-	loadUser: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
-
-export default connect(mapStateToProps, { logout, loadUser })(Header);
+export default Header;
