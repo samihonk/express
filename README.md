@@ -24,6 +24,8 @@ yarn start
 -   docker
 -   react
 -   redux state management 
+-   bootrap
+-   fontawesome
 
 ## To add
 
