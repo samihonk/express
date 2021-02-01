@@ -1,5 +1,9 @@
 # express & react
 
+Project needs external database for the moment. 
+Currently I'm running postgres on my raspberry pi just for testing purposes.
+Config can be found under server/config.
+
 Docker for development
 
 ```
@@ -19,12 +23,14 @@ yarn start
 -   express
 -   docker
 -   react
+-   redux state management 
 
 ## To add
 
--   redux state management
--   typescript ?
-
--   cognito login
--   ci-cd pipeline aws
+-   testing
+-   production build
 -   deploy to aws
+-   cognito login
+
+-   ci-cd pipeline aws???
+-   typescript version in future???
