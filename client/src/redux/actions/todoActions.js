@@ -33,6 +33,40 @@ export const getUserTodos = () => async (dispatch) => {
 	}
 };
 
+export const addTodo = (todo) => async (dispatch) => {
+	try {
+		setLoading();
+		const res = await axios.post("/api/todo", todo);
+
+		dispatch({
+			type: Actions.ADD_TODO,
+			payload: res.data,
+		});
+	} catch (error) {
+		dispatch({
+			type: Actions.ERROR,
+			payload: error,
+		});
+	}
+};
+
+export const removeTodo = (todo) => async (dispatch) => {
+	try {
+		setLoading();
+		await axios.delete("/api/todo/" + todo);
+
+		dispatch({
+			type: Actions.REMOVE_TODO,
+			payload: todo,
+		});
+	} catch (error) {
+		dispatch({
+			type: Actions.ERROR,
+			payload: error,
+		});
+	}
+};
+
 export const clearTodos = () => {
 	return {
 		type: Actions.CLEAR_TODOS,

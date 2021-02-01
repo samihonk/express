@@ -1,6 +1,24 @@
 .todos-table {
 	max-width: 800px;
 	margin: auto;
+	background-image: none;
+}
+
+.table-odd > tbody > tr:nth-child(odd) {
+	--bs-table-accent-bg: transparent;
+	background-color: var(--bs-table-striped-bg);
+}
+
+.table-odd > tbody > tr:nth-child(even) {
+	--bs-table-accent-bg: transparent;
+}
+
+.table-even > tbody > tr:nth-child(even) {
+	background-color: var(--bs-table-striped-bg);
+}
+
+.table-even > tbody > tr:nth-child(odd) {
+	--bs-table-accent-bg: transparent;
 }
 
 .table-h-title {
@@ -12,6 +30,30 @@
 	text-align: right;
 }
 
-.table-message {
+.table-message,
+.table-input-message {
 	text-align: right;
+}
+
+.table-control {
+	min-width: 32px;
+	height: 100%;
+}
+
+.form-table-input {
+	width: 100%;
+	border: 0;
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.form-submit {
+	height: 27px;
+	width: 27px;
+}
+
+.center-icon {
+	align-content: center;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
 }

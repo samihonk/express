@@ -75,7 +75,6 @@ router.post(
 	[
 		check("title", "Please include title").not().isEmpty(),
 		check("message", "Please include message").not().isEmpty(),
-		check("UserId").not().isEmpty(),
 	],
 	async (req, res) => {
 		try {
@@ -83,13 +82,15 @@ router.post(
 			if (!errors.isEmpty()) {
 				throw errors;
 			}
-
-			await Todo.build(req.body).save();
+			const todo = {
+				title: req.body.title,
+				message: req.body.message,
+				UserId: req.user.id,
+			};
+			const result = await Todo.build(todo).save();
 			console.log("New todo was created!");
 
-			return res
-				.status(200)
-				.send({ msg: "Todo was created succesfully!" });
+			return res.status(200).send(result);
 		} catch (error) {
 			console.log(error);
 			return res.status(400).send({
@@ -147,6 +148,7 @@ router.delete("/:id", auth, async (req, res) => {
 		await Todo.destroy({
 			where: {
 				id: req.params.id,
+				UserId: req.user.id,
 			},
 		});
 		return res.status(200).json({ msg: "Todo deleted!" });

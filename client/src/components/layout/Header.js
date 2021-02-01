@@ -11,7 +11,7 @@ const Header = () => {
 	const history = useHistory();
 
 	useEffect(() => {
-		if (auth.isAuthenticated ? dispatch(loadUser()) : null);
+		if (!auth.isAuthenticated ? dispatch(loadUser()) : null);
 	}, [dispatch, auth.isAuthenticated]);
 
 	const onLogout = () => {

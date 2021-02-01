@@ -7,11 +7,24 @@ const initialState = {
 
 const todoReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case Actions.ADD_TODO:
+			return {
+				...state,
+				todos: [...state.todos, action.payload],
+				loading: false,
+			};
 		case Actions.GET_USER_TODOS:
 		case Actions.GET_TODOS:
 			return {
 				...state,
 				todos: action.payload,
+				loading: false,
+			};
+		case Actions.REMOVE_TODO:
+			console.log(action.payload);
+			return {
+				...state,
+				todos: state.todos.filter((todo) => todo.id !== action.payload),
 				loading: false,
 			};
 		case Actions.LOADING:
