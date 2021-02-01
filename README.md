@@ -34,5 +34,8 @@ yarn start
 -   deploy to aws
 -   cognito login
 
+## To think about
+
+-   next.js ???
 -   ci-cd pipeline aws???
 -   typescript version in future???
