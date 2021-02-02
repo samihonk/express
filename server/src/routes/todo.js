@@ -16,8 +16,7 @@ const auth = require("../middleware/auth");
  */
 router.get("/", auth, async (req, res) => {
 	try {
-		// await new Promise((resolve) => setTimeout(resolve, 5000));
-		const result = await Todo.findAll(); //{ attributes: ["name", "email"] }
+		const result = await Todo.findAll();
 		res.status(200).json(result);
 	} catch (error) {
 		console.log(error);
@@ -27,7 +26,7 @@ router.get("/", auth, async (req, res) => {
 
 /**
  * @route GET api/todo/user/
- * @desc Get todo
+ * @desc Get users todos
  * @access Private
  */
 router.get("/user/", auth, async (req, res) => {
@@ -37,7 +36,6 @@ router.get("/user/", auth, async (req, res) => {
 				UserId: req.user.id,
 			},
 		});
-		//{ attributes: ["name", "email"] }
 		return res.status(200).json(result);
 	} catch (error) {
 		console.log(error);
@@ -56,7 +54,7 @@ router.get("/:id", auth, async (req, res) => {
 			where: {
 				id: req.params.id,
 			},
-		}); //{ attributes: ["name", "email"] }
+		});
 		res.status(200).json(result);
 	} catch (error) {
 		console.log(error);
@@ -144,7 +142,6 @@ router.put(
  */
 router.delete("/:id", auth, async (req, res) => {
 	try {
-		// throw "Testing error!";
 		await Todo.destroy({
 			where: {
 				id: req.params.id,
@@ -163,21 +160,20 @@ router.delete("/:id", auth, async (req, res) => {
  * @desc Delete todo
  * @access Private
  */
-router.delete("/user/:id", auth, async (req, res) => {
-	try {
-		// throw "Testing error!";
-		await Todo.destroy({
-			truncate: true,
-			where: {
-				UserId: req.params.id,
-			},
-		});
-		return res.status(200).json({ msg: "Todos deleted!" });
-	} catch (error) {
-		console.log(error);
-		return res.status(400).json({ msg: "Couldn't fetch data!" });
-	}
-});
+// router.delete("/user/:id", auth, async (req, res) => {
+// 	try {
+// 		await Todo.destroy({
+// 			truncate: true,
+// 			where: {
+// 				UserId: req.params.id,
+// 			},
+// 		});
+// 		return res.status(200).json({ msg: "Todos deleted!" });
+// 	} catch (error) {
+// 		console.log(error);
+// 		return res.status(400).json({ msg: "Couldn't fetch data!" });
+// 	}
+// });
 
 /**
  * @route DELETE api/todo
@@ -186,7 +182,6 @@ router.delete("/user/:id", auth, async (req, res) => {
  */
 router.delete("/all/", auth, async (req, res) => {
 	try {
-		// throw "Testing error!";
 		await Todo.destroy({
 			truncate: true,
 		});

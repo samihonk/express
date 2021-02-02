@@ -9,6 +9,7 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case Actions.REGISTER_SUCCESS:
 		case Actions.LOGIN_SUCCESS:
 			localStorage.setItem("authToken", action.payload.token);
 			return {
@@ -16,7 +17,7 @@ const authReducer = (state = initialState, action) => {
 				token: action.payload.token,
 				isAuthenticated: true,
 			};
-		case Actions.LOGOUT:
+		case Actions.REGISTER_FAIL:
 		case Actions.LOGIN_FAIL:
 		case Actions.AUTH_ERROR:
 			localStorage.removeItem("authToken");
@@ -32,6 +33,14 @@ const authReducer = (state = initialState, action) => {
 				...state,
 				isAuthenticated: true,
 				user: action.payload,
+			};
+		case Actions.LOGOUT:
+			localStorage.removeItem("authToken");
+			return {
+				...state,
+				token: null,
+				isAuthenticated: false,
+				user: null,
 			};
 		default:
 			return state;

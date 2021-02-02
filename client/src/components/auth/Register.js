@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { login } from "../../redux/actions/authActions";
+import { register as registerUser } from "../../redux/actions/authActions";
 import "./auth.css";
 
-const Login = () => {
+const Register = () => {
 	const emailRegex = /\S+@\S+$/;
 	const history = useHistory();
 	const auth = useSelector((state) => state.auth);
@@ -17,13 +17,31 @@ const Login = () => {
 	}, [auth.isAuthenticated, history]);
 
 	const onSubmit = (e) => {
-		dispatch(login(e));
+		dispatch(registerUser(e));
 	};
 
 	return (
 		<div className="row justify-content-center login">
-			<h2>Login</h2>
+			<h2>Register</h2>
 			<form onSubmit={handleSubmit(onSubmit)}>
+				<div className="form-group form-spacing">
+					<label htmlFor="name">Name:</label>
+					<input
+						className="form-control"
+						id="name"
+						type="text"
+						name="name"
+						placeholder="Enter name"
+						ref={register({
+							required: "Name required",
+						})}
+					/>
+					{errors.name && (
+						<div className="invalid-feedback">
+							{errors.name.message}
+						</div>
+					)}
+				</div>
 				<div className="form-group form-spacing">
 					<label htmlFor="email">Email:</label>
 					<input
@@ -65,11 +83,11 @@ const Login = () => {
 					)}
 				</div>
 				<button type="submit" className="btn btn-primary form-spacing">
-					Login
+					Register
 				</button>
 			</form>
 		</div>
 	);
 };
 
-export default Login;
+export default Register;

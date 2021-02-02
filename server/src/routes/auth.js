@@ -83,4 +83,69 @@ router.post(
 	}
 );
 
+/**
+ * @route POST api/auth/register
+ * @desc Register user
+ * @access Public
+ */
+router.post(
+	"/register",
+	[
+		check("name", "Please include name").not().isEmpty(),
+		check("email")
+			.isEmail()
+			.withMessage("Please include valid email")
+			.custom(async (value) => {
+				const user = await User.findOne({
+					attributes: ["id", "name", "email"],
+					where: {
+						email: value,
+					},
+				});
+				if (user) {
+					return Promise.reject();
+				}
+			})
+			.withMessage("E-mail already in use"),
+		check("password")
+			.matches(
+				/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@#$%^&(){}[\]:;<>,.?/~_+\-=|]).{8,32}$/i
+			)
+			.withMessage(
+				"Please enter password that is atleast 8 characters long and include a number, letter, capital letter and special character"
+			),
+	],
+	async (req, res) => {
+		try {
+			const errors = validationResult(req);
+			if (!errors.isEmpty()) {
+				throw errors;
+			}
+			let user = User.build(req.body);
+			const salt = await bcrypt.genSalt(10);
+			user.password = await bcrypt.hash(user.password, salt);
+			await user.save();
+
+			console.log("New user was created!");
+			const payload = {
+				user: { id: user.id },
+			};
+			jwt.sign(
+				payload,
+				config.get("jwtSecret"),
+				{ expiresIn: 3600 },
+				(err, token) => {
+					if (err) throw err;
+					return res.status(200).json({ token });
+				}
+			);
+		} catch (error) {
+			console.log(error);
+			return res.status(400).send({
+				msg: "Something went wrong",
+			});
+		}
+	}
+);
+
 module.exports = router;

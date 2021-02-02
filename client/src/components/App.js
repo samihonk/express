@@ -10,6 +10,7 @@ import store from "../redux/store";
 import Header from "./layout/Header";
 import Home from "./layout/Home";
 import Login from "./auth/Login";
+import Register from "./auth/Register";
 import Layout from "./layout/Layout";
 import Todos from "./todos/Todos";
 import PrivateRoute from "./route/PrivateRoute";
@@ -38,6 +39,9 @@ const App = () => {
 						</PrivateRoute>
 						<Route exact path="/login">
 							<Login />
+						</Route>
+						<Route exact path="/register">
+							<Register />
 						</Route>
 						<Redirect to="/" />
 					</Switch>

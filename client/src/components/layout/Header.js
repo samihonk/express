@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, loadUser } from "../../redux/actions/authActions";
@@ -11,33 +11,49 @@ const Header = () => {
 	const history = useHistory();
 
 	useEffect(() => {
-		if (!auth.isAuthenticated ? dispatch(loadUser()) : null);
-	}, [dispatch, auth.isAuthenticated]);
+		if (auth.token !== null ? dispatch(loadUser()) : null);
+	}, [dispatch, auth.token]);
 
 	const onLogout = () => {
-		dispatch(logout());
-		dispatch(clearTodos());
-		history.push("/");
+		dispatch(logout())
+			.then(() => {
+				dispatch(clearTodos());
+			})
+			.then(() => {
+				history.push("/");
+			});
 	};
 
 	const guestLogin = (
-		<Link className="nav-link" to="/login">
-			Login
-		</Link>
+		<Fragment>
+			<Link className="nav-link" to="/login">
+				Login
+			</Link>
+			<Link className="nav-link" to="/register">
+				Register
+			</Link>
+		</Fragment>
 	);
 
 	const authLogin = (
-		<Link to="/" onClick={onLogout} className="nav-link">
-			Logout
-		</Link>
+		<Fragment>
+			{auth.user ? (
+				<h4 className="header-nav-user">{auth.user.name}</h4>
+			) : null}
+			<Link to="/" onClick={onLogout} className="nav-link">
+				Logout
+			</Link>
+		</Fragment>
 	);
 
 	const authLinks = (
-		<li className="nav-item">
-			<Link className="nav-link" to="/todos">
-				Todos
-			</Link>
-		</li>
+		<Fragment>
+			<li className="nav-item">
+				<Link className="nav-link" to="/todos">
+					Todos
+				</Link>
+			</li>
+		</Fragment>
 	);
 
 	return (

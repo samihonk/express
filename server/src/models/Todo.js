@@ -33,7 +33,7 @@ const Todo = db.define(
 );
 //User,{as:"UserId"} for specific column name Default tablename followed by id in uppercase example UserId
 Todo.belongsTo(User);
-// Alter table sync doesn't do anything if table exists{ alter: true } Recreate table (drop & create){ force: true }
+// Sync doesn't do anything if table exists. To later table add { alter: true }  and to recreate table (drop & create) add { force: true }
 // Dont use in production
 Todo.sync({ alter: true, logging: false }).then(() => {
 	console.log("Table updated!");

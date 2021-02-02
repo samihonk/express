@@ -2,7 +2,23 @@ import axios from "axios";
 import * as Actions from "./actionTypes";
 import { setHeaders, setAuth } from "../helpers/AxiosHelper";
 
-//Add loginform
+export const register = (user) => async (dispatch) => {
+	try {
+		setHeaders();
+		const res = await axios.post("/api/auth/register", user);
+
+		dispatch({
+			type: Actions.REGISTER_SUCCESS,
+			payload: res.data,
+		});
+	} catch (error) {
+		dispatch({
+			type: Actions.REGISTER_FAIL,
+			payload: error,
+		});
+	}
+};
+
 export const login = (user) => async (dispatch) => {
 	try {
 		setHeaders();

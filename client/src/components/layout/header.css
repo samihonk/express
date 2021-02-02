@@ -13,6 +13,11 @@
 	padding-right: var(--padding-default);
 }
 
+.header-nav-user {
+	color: var(--bs-light);
+	margin: auto;
+}
+
 .nav-tabs {
 	border-bottom: transparent;
 }
