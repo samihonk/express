@@ -15,6 +15,7 @@ import Layout from "./layout/Layout";
 import Todos from "./todos/Todos";
 import PrivateRoute from "./route/PrivateRoute";
 import Filler from "./layout/Filler";
+import { config } from "@fortawesome/fontawesome-svg-core";
 import "./app.css";
 
 /**
@@ -22,6 +23,7 @@ import "./app.css";
  */
 
 const App = () => {
+	config.autoAddCss = false;
 	return (
 		<Provider store={store}>
 			<Router>

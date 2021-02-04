@@ -2,7 +2,6 @@
 	"name": "client",
 	"description": "react frontend",
 	"license": "MIT license",
-	"homepage": "https://github.com/samihonk/express",
 	"version": "0.1.0",
 	"author": {
 		"name": "Sami Honkanen"

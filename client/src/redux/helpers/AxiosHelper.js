@@ -10,6 +10,7 @@ export const setAuth = (token) => {
 
 //Change basurl to environment variable
 export const setHeaders = () => {
-	axios.defaults.baseURL = "http://localhost:8080";
+	axios.defaults.baseURL =
+		process.env.REACT_APP_BASE_URL || "http://localhost:8080";
 	axios.defaults.headers.post["Content-Type"] = "application/json";
 };
