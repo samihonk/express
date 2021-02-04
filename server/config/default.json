@@ -1,10 +1,11 @@
 {
 	"DB": {
-		"NAME": "postgres",
+		"NAME": "express",
 		"PORT": 5432,
-		"HOST": "db",
-		"USERNAME": "postgres",
-		"PASSWORD": "postgres"
+		"HOST": "192.168.11.52",
+		"USERNAME": "express",
+		"PASSWORD": "admin",
+		"DIALECT": "postgres"
 	},
 	"PORT": 8080,
 	"jwtSecret": "secret"

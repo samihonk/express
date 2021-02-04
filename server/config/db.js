@@ -8,7 +8,6 @@ module.exports = new Sequelize(
 	{
 		host: process.env.DB_HOST || config.get("DB.HOST"),
 		port: process.env.DB_PORT || config.get("DB.PORT"),
-		dialect:
-			"postgres" /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
+		dialect: process.env.DB_DIALECT || config.get("DB.DIALECT"),
 	}
 );

@@ -11,6 +11,7 @@ services:
             - DB_HOST=192.168.11.52
             - DB_USERNAME=express
             - DB_PASSWORD=admin
+            - DB_DIALECT=postgres
             - PORT=3000
             - JWT_SECRET=secret
         build:

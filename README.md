@@ -6,32 +6,35 @@ Docker for development
 docker-compose up
 ```
 
-or without docker
+or without docker, this needs external database to run.
+Config can be found in server/config/default.json.
 
 ```
 yarn start
 ```
 
-## something in use
+## Done
 
 -   postgres
 -   sequelize
 -   express
 -   docker
 -   react
--   redux state management 
+-   redux state management
 -   bootrap
 -   fontawesome
+-   production build
 
 ## To add
 
 -   testing
--   production build
 -   deploy to aws
 -   cognito login
 
 ## To think about
 
+-   migrations ???
 -   next.js ???
--   ci-cd pipeline aws???
--   typescript version in future???
+-   ci-cd pipeline aws ???
+-   typescript version in future ???
+-   production build without docker-compose
