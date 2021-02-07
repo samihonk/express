@@ -29,7 +29,6 @@ yarn start
 
 -   testing
 -   deploy to aws
--   cognito login
 
 ## To think about
 
@@ -38,3 +37,4 @@ yarn start
 -   ci-cd pipeline aws ???
 -   typescript version in future ???
 -   production build without docker-compose
+-   cognito login

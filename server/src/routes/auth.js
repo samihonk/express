@@ -4,7 +4,7 @@ const { check, validationResult } = require("express-validator");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("config");
+const { JWT_SECRET } = require("../../config/config");
 const auth = require("../middleware/auth");
 
 /**
@@ -67,15 +67,10 @@ router.post(
 			const payload = {
 				user: { id: user.id },
 			};
-			jwt.sign(
-				payload,
-				process.env.JWT_SECRET || config.get("jwtSecret"),
-				{ expiresIn: 3600 },
-				(err, token) => {
-					if (err) throw err;
-					return res.status(200).json({ token });
-				}
-			);
+			jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
+				if (err) throw err;
+				return res.status(200).json({ token });
+			});
 		} catch (error) {
 			console.log(error);
 			return res.status(400).send({ msg: "Something went wrong" });
@@ -130,15 +125,10 @@ router.post(
 			const payload = {
 				user: { id: user.id },
 			};
-			jwt.sign(
-				payload,
-				process.env.JWT_SECRET || config.get("jwtSecret"),
-				{ expiresIn: 3600 },
-				(err, token) => {
-					if (err) throw err;
-					return res.status(200).json({ token });
-				}
-			);
+			jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
+				if (err) throw err;
+				return res.status(200).json({ token });
+			});
 		} catch (error) {
 			console.log(error);
 			return res.status(400).send({

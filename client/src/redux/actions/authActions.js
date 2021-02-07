@@ -40,7 +40,7 @@ export const loadUser = () => async (dispatch) => {
 	try {
 		setAuth(localStorage.authToken);
 		setHeaders();
-		const res = await axios.get("/api/users/single");
+		const res = await axios.get("/api/auth");
 		dispatch({ type: Actions.USER_LOADED, payload: res.data });
 	} catch (error) {
 		dispatch({ type: Actions.AUTH_ERROR, payload: error.data });

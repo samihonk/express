@@ -3,7 +3,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
 const db = require("../config/db");
-const config = require("config");
+const { PORT } = require("../config/config");
 const path = require("path");
 
 db.authenticate()
@@ -34,7 +34,7 @@ app.get("/api", (req, res) => {
 });
 
 //Define Routes
-app.use("/api/users", require("./routes/users"));
+// app.use("/api/users", require("./routes/users"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/todo", require("./routes/todo"));
 
@@ -50,7 +50,5 @@ app.use((req, res) => {
 	res.status(404);
 	res.json({ msg: "Resource not found!!" });
 });
-
-const PORT = process.env.PORT || config.get("PORT");
 
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));

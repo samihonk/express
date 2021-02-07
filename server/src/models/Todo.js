@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../../config/db");
+const { alter, logging } = require("../../config/config");
 const User = require("./User");
 
 const Todo = db.define(
@@ -35,7 +36,7 @@ const Todo = db.define(
 Todo.belongsTo(User);
 // Sync doesn't do anything if table exists. To later table add { alter: true }  and to recreate table (drop & create) add { force: true }
 // Dont use in production
-Todo.sync({ alter: true, logging: false }).then(() => {
+Todo.sync({ alter, logging }).then(() => {
 	console.log("Table updated!");
 });
 

@@ -3,6 +3,8 @@ import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, loadUser } from "../../redux/actions/authActions";
 import { clearTodos } from "../../redux/actions/todoActions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import "./header.css";
 
 const Header = () => {
@@ -26,23 +28,52 @@ const Header = () => {
 
 	const guestLogin = (
 		<Fragment>
-			<Link className="nav-link" to="/login">
-				Login
-			</Link>
-			<Link className="nav-link" to="/register">
-				Register
-			</Link>
+			<button
+				className="btn btn-secondary navbar-toggler dropdown-btn collapsed"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#dropdownLogin"
+				aria-controls="dropdownLogin"
+				aria-expanded="false"
+				aria-label="Toggle login"
+			>
+				<FontAwesomeIcon
+					className="dropdown-icon"
+					icon={faBars}
+					size="xs"
+				/>
+			</button>
+			<div className="navbar-collapse collapse" id="dropdownLogin">
+				<ul className="navbar-nav">
+					<li className="nav-item">
+						<Link className="nav-link" to="/login">
+							Login
+						</Link>
+					</li>
+					<li className="nav-item">
+						<Link className="nav-link" to="/register">
+							Register
+						</Link>
+					</li>
+				</ul>
+			</div>
 		</Fragment>
 	);
 
 	const authLogin = (
 		<Fragment>
-			{auth.user ? (
-				<h4 className="header-nav-user">{auth.user.name}</h4>
-			) : null}
-			<Link to="/" onClick={onLogout} className="nav-link">
-				Logout
-			</Link>
+			<ul className="navbar-nav">
+				{auth.user ? (
+					<li className="nav-item header-nav-user-item">
+						<div className="header-nav-user">{auth.user.name}</div>
+					</li>
+				) : null}
+				<li className="nav-item">
+					<Link to="/" onClick={onLogout} className="nav-link">
+						Logout
+					</Link>
+				</li>
+			</ul>
 		</Fragment>
 	);
 
@@ -57,10 +88,10 @@ const Header = () => {
 	);
 
 	return (
-		<nav className="navbar fixed-top navbar-expand-sm bg-dark navbar-expanded">
-			<h1 className="navbar-text header-nav-title" to="/">
+		<nav className="navbar fixed-top navbar-expand-md bg-dark navbar-expanded">
+			<div className="navbar-text header-nav-title" to="/">
 				NavBar
-			</h1>
+			</div>
 			<ul className="nav nav-tabs links-left">
 				<li className="nav-item">
 					<Link className="nav-link" to="/">
@@ -74,12 +105,8 @@ const Header = () => {
 				</li>
 				{auth.isAuthenticated ? authLinks : null}
 			</ul>
-			<ul className="nav nav-tabs">
-				<li className="nav-item">
-					<div className="navbar-nav">
-						{auth.isAuthenticated ? authLogin : guestLogin}
-					</div>
-				</li>
+			<ul className="nav nav-tabs links-right">
+				{auth.isAuthenticated ? authLogin : guestLogin}
 			</ul>
 		</nav>
 	);

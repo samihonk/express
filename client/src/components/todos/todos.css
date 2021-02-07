@@ -33,6 +33,7 @@
 .table-message,
 .table-input-message {
 	text-align: right;
+	word-break: break-word;
 }
 
 .table-control {

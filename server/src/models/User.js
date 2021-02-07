@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../../config/db");
+const { alter, logging } = require("../../config/config");
 
 const User = db.define(
 	"User",
@@ -49,7 +50,7 @@ const User = db.define(
 );
 // Alter table sync doesn't do anything if table exists{ alter: true } Recreate table (drop & create){ force: true }
 // Dont use in production
-User.sync({ alter: true, logging: false }).then(() => {
+User.sync({ alter, logging }).then(() => {
 	console.log("Table updated!");
 });
 
