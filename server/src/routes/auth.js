@@ -45,7 +45,7 @@ router.post(
 			const errors = validationResult(req);
 
 			if (!errors.isEmpty()) {
-				throw errors;
+				throw new Error(errors.errors[0].msg);
 			}
 
 			const { email, password } = req.body;
@@ -57,12 +57,12 @@ router.post(
 			});
 
 			if (!user || user === null)
-				return res.status(400).send({ msg: "Invalid credentials" });
+				return res.status(401).json({ msg: "Invalid credentials" });
 
 			const isMatch = await bcrypt.compare(password, user.password);
 
 			if (!isMatch)
-				return res.status(400).send({ msg: "Invalid credentials" });
+				return res.status(401).json({ msg: "Invalid credentials" });
 
 			const payload = {
 				user: { id: user.id },
@@ -73,7 +73,7 @@ router.post(
 			});
 		} catch (error) {
 			console.log(error);
-			return res.status(400).send({ msg: "Something went wrong" });
+			return res.status(400).json({ msg: error.message });
 		}
 	}
 );
@@ -113,8 +113,9 @@ router.post(
 	async (req, res) => {
 		try {
 			const errors = validationResult(req);
+
 			if (!errors.isEmpty()) {
-				throw errors;
+				throw new Error(errors.errors[0].msg);
 			}
 			let user = User.build(req.body);
 			const salt = await bcrypt.genSalt(10);
@@ -130,9 +131,9 @@ router.post(
 				return res.status(200).json({ token });
 			});
 		} catch (error) {
-			console.log(error);
-			return res.status(400).send({
-				msg: "Something went wrong",
+			console.log(error.message);
+			return res.status(400).json({
+				msg: error.message,
 			});
 		}
 	}

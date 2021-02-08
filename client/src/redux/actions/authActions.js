@@ -14,7 +14,7 @@ export const register = (user) => async (dispatch) => {
 	} catch (error) {
 		dispatch({
 			type: Actions.REGISTER_FAIL,
-			payload: error,
+			payload: error.response.data.msg,
 		});
 	}
 };
@@ -29,9 +29,10 @@ export const login = (user) => async (dispatch) => {
 			payload: res.data,
 		});
 	} catch (error) {
+		console.log(error.response.data.msg);
 		dispatch({
 			type: Actions.LOGIN_FAIL,
-			payload: error,
+			payload: error.response.data.msg,
 		});
 	}
 };
@@ -43,7 +44,10 @@ export const loadUser = () => async (dispatch) => {
 		const res = await axios.get("/api/auth");
 		dispatch({ type: Actions.USER_LOADED, payload: res.data });
 	} catch (error) {
-		dispatch({ type: Actions.AUTH_ERROR, payload: error.data });
+		dispatch({
+			type: Actions.AUTH_ERROR,
+			payload: error.response.data.msg,
+		});
 	}
 };
 
@@ -55,7 +59,20 @@ export const logout = () => async (dispatch) => {
 	} catch (error) {
 		dispatch({
 			type: Actions.AUTH_ERROR,
-			payload: error.data,
+			payload: error.response.data.msg,
+		});
+	}
+};
+
+export const clearErrors = () => async (dispatch) => {
+	try {
+		dispatch({
+			type: Actions.CLEAR_ERRORS,
+		});
+	} catch (error) {
+		dispatch({
+			type: Actions.AUTH_ERROR,
+			payload: error.response.data.msg,
 		});
 	}
 };

@@ -78,6 +78,7 @@ router.post(
 		try {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
+				console.log(errors.errors[0]);
 				throw errors;
 			}
 			const todo = {
@@ -91,7 +92,7 @@ router.post(
 			return res.status(200).send(result);
 		} catch (error) {
 			console.log(error);
-			return res.status(400).send({
+			return res.status(400).json({
 				msg: "Something went wrong",
 			});
 		}
@@ -151,7 +152,7 @@ router.delete("/:id", auth, async (req, res) => {
 		return res.status(200).json({ msg: "Todo deleted!" });
 	} catch (error) {
 		console.log(error);
-		return res.status(400).json({ msg: "Couldn't fetch data!" });
+		return res.status(400).json({ errorMessage: "Couldn't fetch data!" });
 	}
 });
 

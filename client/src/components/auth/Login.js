@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { login } from "../../redux/actions/authActions";
+import { login, clearErrors } from "../../redux/actions/authActions";
 import "./auth.css";
 
 const Login = () => {
 	const emailRegex = /\S+@\S+$/;
 	const history = useHistory();
+	const location = useLocation();
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const { handleSubmit, register, errors } = useForm();
@@ -15,6 +16,10 @@ const Login = () => {
 	useEffect(() => {
 		if (auth.isAuthenticated) history.push("/todos");
 	}, [auth.isAuthenticated, history]);
+
+	useEffect(() => {
+		dispatch(clearErrors());
+	}, [dispatch, location]);
 
 	const onSubmit = (e) => {
 		dispatch(login(e));
@@ -27,7 +32,9 @@ const Login = () => {
 				<div className="form-group form-spacing">
 					<label htmlFor="email">Email:</label>
 					<input
-						className="form-control"
+						className={`form-control ${
+							errors.email ? "is-invalid" : ""
+						}`}
 						id="email"
 						type="email"
 						name="email"
@@ -49,7 +56,9 @@ const Login = () => {
 				<div className="form-group form-spacing">
 					<label htmlFor="pwd">Password:</label>
 					<input
-						className="form-control"
+						className={`form-control ${
+							errors.password ? "is-invalid" : ""
+						}`}
 						id="password"
 						type="password"
 						name="password"
@@ -67,6 +76,9 @@ const Login = () => {
 				<button type="submit" className="btn btn-primary form-spacing">
 					Login
 				</button>
+				{auth.error && (
+					<div className="alert alert-danger">{auth.error}</div>
+				)}
 			</form>
 		</div>
 	);
