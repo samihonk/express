@@ -13,6 +13,11 @@ Config can be found in server/config/default.json.
 yarn start
 ```
 
+Project needs some code cleanup
+
+App can be tested online at
+https://www.purkkakoodia.fi/
+
 ## Done
 
 -   postgres
