@@ -29,11 +29,11 @@ https://www.purkkakoodia.fi/
 -   bootrap
 -   fontawesome
 -   production build
+-   deploy to aws
 
 ## To add
 
 -   testing
--   deploy to aws
 
 ## To think about
 
