@@ -34,6 +34,7 @@ https://www.purkkakoodia.fi/
 ## To add
 
 -   testing
+-   change online version to different address
 
 ## To think about
 
